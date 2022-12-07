@@ -4,101 +4,46 @@
       <div class="left"></div>
       <div class="right">
         <h3 class="loginTitle">后台管理系统</h3>
-        <el-form
-          :model="loginForm"
-          status-icon
-          :rules="loginRules"
-          ref="ruleForm"
-          class="demo-ruleForm"
-        >
+        <el-form :model="loginForm" status-icon :rules="loginRules" ref="ruleForm" class="demo-ruleForm">
           <el-form-item prop="username">
-            <el-input
-              placeholder="用户名"
-              v-model="loginForm.username"
-              prefix-icon="el-icon-user"
-              autocomplete="off"
-            ></el-input>
+            <el-input placeholder="用户名" v-model="loginForm.username" prefix-icon="el-icon-user"
+              autocomplete="off"></el-input>
           </el-form-item>
 
           <el-form-item prop="password">
-            <el-input
-              placeholder="密码"
-              show-password
-              prefix-icon="el-icon-lock"
-              v-model="loginForm.password"
-              autocomplete="off"
-            ></el-input>
+            <el-input placeholder="密码" show-password prefix-icon="el-icon-lock" v-model="loginForm.password"
+              autocomplete="off"></el-input>
           </el-form-item>
 
           <el-form-item style="text-align: right">
-            <el-button type="text" @click="dialogLogupVisible = true"
-              >注册账号</el-button
-            >
-            <el-button type="text" @click="submitForm('ruleForm')"
-              >忘记密码?</el-button
-            >
+            <el-button type="text" @click="dialogLogupVisible = true">注册账号</el-button>
+            <el-button type="text" @click="submitForm('ruleForm')">忘记密码?</el-button>
           </el-form-item>
 
           <el-form-item>
-            <el-button
-              class="loginBtn"
-              type="primary"
-              @click="submitLogin('ruleForm')"
-              >登录</el-button
-            >
+            <el-button class="loginBtn" type="primary" @click="submitLogin('ruleForm')">登录</el-button>
           </el-form-item>
         </el-form>
       </div>
     </div>
-    <el-dialog
-      title="注册"
-      :visible.sync="dialogLogupVisible"
-      @close="closeLogup('logupRuleForm')"
-    >
+    <el-dialog title="注册" :visible.sync="dialogLogupVisible" :close-on-click-modal="false"
+      @close="closeLogup('logupRuleForm')">
       <el-form :model="logupForm" :rules="logupRules" ref="logupRuleForm">
-        <el-form-item
-          label="用户名"
-          :label-width="formLabelWidth"
-          prop="username"
-        >
-          <el-input
-            v-model="logupForm.username"
-            prefix-icon="el-icon-user"
-            autocomplete="off"
-          />
+        <el-form-item label="用户名" :label-width="formLabelWidth" prop="username">
+          <el-input v-model="logupForm.username" prefix-icon="el-icon-user" autocomplete="off" />
         </el-form-item>
 
-        <el-form-item
-          label="密码"
-          :label-width="formLabelWidth"
-          prop="password"
-        >
-          <el-input
-            v-model="logupForm.password"
-            prefix-icon="el-icon-lock"
-            show-password
-            autocomplete="off"
-          />
+        <el-form-item label="密码" :label-width="formLabelWidth" prop="password">
+          <el-input v-model="logupForm.password" prefix-icon="el-icon-lock" show-password autocomplete="off" />
         </el-form-item>
 
-        <el-form-item
-          label="确认密码"
-          :label-width="formLabelWidth"
-          prop="rePassword"
-        >
-          <el-input
-            v-model="logupForm.rePassword"
-            prefix-icon="el-icon-lock"
-            show-password
-            autocomplete="off"
-          />
+        <el-form-item label="确认密码" :label-width="formLabelWidth" prop="rePassword">
+          <el-input v-model="logupForm.rePassword" prefix-icon="el-icon-lock" show-password autocomplete="off" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="closeLogup('logupRuleForm')">取消</el-button>
-        <el-button type="primary" @click="submitLogup('logupRuleForm')"
-          >注册</el-button
-        >
+        <el-button type="primary" @click="submitLogup('logupRuleForm')">注册</el-button>
       </div>
     </el-dialog>
   </div>
@@ -149,6 +94,7 @@ export default {
             .then((res) => {
               if (res.data.success) {
                 this.$message.success("登录成功！");
+                sessionStorage.setItem('token', res.data.token)
                 this.$router.push("/home");
               } else {
                 this.$message.error(res.data.message);
@@ -171,7 +117,7 @@ export default {
             .then((res) => {
               if (res.data.success) {
                 this.$message.success("注册成功！");
-                this.$router.push("/home");
+                // this.$router.push("/home");
               } else {
                 this.$message.error(res.data.message);
               }
@@ -190,8 +136,8 @@ export default {
       this.dialogLogupVisible = false;
     },
   },
-  created() {},
-  mounted() {},
+  created() { },
+  mounted() { },
 };
 </script>
 
@@ -211,6 +157,7 @@ export default {
     height: 400px;
     background-color: #ffffff;
     opacity: 0.9;
+
     .left {
       flex: 3;
       background-image: url("../assets/images/login.jpg");
