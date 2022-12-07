@@ -95,7 +95,12 @@ export default {
               if (res.data.success) {
                 this.$message.success("登录成功！");
                 sessionStorage.setItem('token', res.data.token)
-                this.$router.push("/home");
+                console.log(this.$route.query.redirect);
+                if(this.$route.query.redirect) {
+                  this.$router.push(this.$route.query.redirect);
+                } else {
+                  this.$router.push("/home");
+                }
               } else {
                 this.$message.error(res.data.message);
               }

@@ -7,7 +7,7 @@
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
-              <span>导航一</span>
+              <span @click="toHello">导航一</span>
             </template>
             <el-menu-item-group>
               <template slot="title">分组一</template>
@@ -36,7 +36,9 @@
           </el-menu-item>
         </el-menu>
       </el-aside>
-      <el-main>Main</el-main>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -49,6 +51,11 @@ export default {
   name: 'Home',
   components: {
     HelloWorld
+  },
+  methods: {
+    toHello() {
+      this.$router.push("/helloWorld")
+    }
   },
   created() { }
 }
