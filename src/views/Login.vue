@@ -89,14 +89,14 @@ export default {
     submitLogin(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          axios
-            .post("http://localhost:3000/users/login", this.loginForm)
+          this.$axios.post("/users/login", this.loginForm)
+            // axios.post("http://localhost:3000/users/login", this.loginForm)
             .then((res) => {
               if (res.data.success) {
                 this.$message.success("登录成功！");
                 sessionStorage.setItem('token', res.data.token)
                 console.log(this.$route.query.redirect);
-                if(this.$route.query.redirect) {
+                if (this.$route.query.redirect) {
                   this.$router.push(this.$route.query.redirect);
                 } else {
                   this.$router.push("/home");
@@ -117,8 +117,8 @@ export default {
     submitLogup(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          axios
-            .post("http://localhost:3000/users/logup", this.logupForm)
+          this.$axios.post("/users/logup", this.logupForm)
+            // axios.post("http://localhost:3000/users/logup", this.logupForm)
             .then((res) => {
               if (res.data.success) {
                 this.$message.success("注册成功！");

@@ -54,7 +54,20 @@ export default {
   },
   methods: {
     toHello() {
-      this.$router.push("/helloWorld")
+      console.log(this.$router);
+      // this.$router.push("/helloWorld")
+      this.$axios.get("/api/getUserInfo")
+        .then((res) => {
+          console.log(res, 'res');
+          if (res.status) {
+
+          } else {
+            this.$message.error(res.message);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   },
   created() { }
